@@ -231,60 +231,9 @@ noclip() -- to toggle noclip() and clip()
  })
 
  local Toggle = MiscTab:CreateToggle({
-    Name = "Walk On Water",
-    CurrentValue = false,
-    Flag = "Toggle3", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
-    Callback = function(Value)
--- LocalScript inside StarterPlayerScripts
-
-local player = game.Players.LocalPlayer
-local character = player.Character or player.CharacterAdded:Wait()
-local humanoid = character:WaitForChild("Humanoid")
-local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
-local walkOnWaterEnabled = true  -- Toggle for walking on water
-local hoverHeight = 2  -- Height above the water to simulate walking
-
--- Function to make the character hover on water
-local function hoverOnWater()
-    -- Continuously check the player's position while walking on water
-    while walkOnWaterEnabled do
-        -- Get the current position of the player's HumanoidRootPart
-        local waterPosition = humanoidRootPart.Position
-        local ray = Ray.new(waterPosition, Vector3.new(0, -10, 0))  -- Raycasting downwards to detect water
-
-        -- Perform raycast to detect the water part (we're checking 10 studs down)
-        local hit, position = workspace:FindPartOnRay(ray, character)
-
-        -- Check if the ray hits a part named "Water"
-        if hit and hit:IsA("Part") and hit.Name == "Water" then
-            -- If the player is over a water part, maintain the hover position at a certain height above the water
-            local targetPosition = Vector3.new(waterPosition.X, position.Y + hoverHeight, waterPosition.Z)
-            humanoidRootPart.CFrame = CFrame.new(targetPosition)
-        end
-
-        -- Wait briefly before checking again
-        wait(0.1)
-    end
-end
-
--- Start hovering on water once the player joins the game
-hoverOnWater()
-
--- Optional: Handle respawn if the character dies
-player.CharacterAdded:Connect(function(newCharacter)
-    character = newCharacter
-    humanoid = character:WaitForChild("Humanoid")
-    humanoidRootPart = character:WaitForChild("HumanoidRootPart")
-    hoverOnWater()  -- Reapply hover effect when the player respawns
-end)
-
-    end,
- })
-
- local Toggle = MiscTab:CreateToggle({
     Name = "Server Hop",
     CurrentValue = false,
-    Flag = "Toggle4", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+    Flag = "Toggle3", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
     Callback = function(Value)
         local PlaceID = game.PlaceId
 local AllIDs = {}
