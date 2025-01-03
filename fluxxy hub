@@ -1,0 +1,275 @@
+local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
+
+local Window = Rayfield:CreateWindow({
+   Name = "Fluxxy Hub",
+   Icon = 0, -- Icon in Topbar. Can use Lucide Icons (string) or Roblox Image (number). 0 to use no icon (default).
+   LoadingTitle = "Fluxxy Hub",
+   LoadingSubtitle = "by Fluxxy",
+   Theme = "AmberGlow", -- Check https://docs.sirius.menu/rayfield/configuration/themes
+
+   DisableRayfieldPrompts = false,
+   DisableBuildWarnings = false, -- Prevents Rayfield from warning when the script has a version mismatch with the interface
+
+   ConfigurationSaving = {
+      Enabled = true,
+      FolderName = nil, -- Create a custom folder for your hub/game
+      FileName = "FluxxyHub"
+   },
+
+   Discord = {
+      Enabled = false, -- Prompt the user to join your Discord server if their executor supports it
+      Invite = "noinvitelink", -- The Discord invite code, do not include discord.gg/. E.g. discord.gg/ ABCD would be ABCD
+      RememberJoins = true -- Set this to false to make them join the discord every time they load it up
+   },
+
+   KeySystem = false, -- Set this to true to use our key system
+   KeySettings = {
+      Title = "Untitled",
+      Subtitle = "Key System",
+      Note = "No method of obtaining the key is provided", -- Use this to tell the user how to get a key
+      FileName = "Key", -- It is recommended to use something unique as other scripts using Rayfield may overwrite your key file
+      SaveKey = true, -- The user's key will be saved, but if you change the key, they will be unable to use your script
+      GrabKeyFromSite = false, -- If this is true, set Key below to the RAW site you would like Rayfield to get the key from
+      Key = {"Hello"} -- List of keys that will be accepted by the system, can be RAW file links (pastebin, github etc) or simple strings ("hello","key22")
+   }
+})
+
+local MainTab = Window:CreateTab("Player", nil) -- Title, Image
+local MainSection = MainTab:CreateSection("Local")
+
+Rayfield:Notify({
+   Title = "Script Executed!",
+   Content = "Welcome Back!",
+   Duration = 5,
+   Image = nil,
+})
+
+local Button = MainTab:CreateButton({
+   Name = "ESP",
+   Callback = function()
+local ESP = loadstring(game:HttpGet("https://raw.githubusercontent.com/linemaster2/esp-library/main/library.lua"))();
+
+--// Master switch
+ESP.Enabled = true;
+
+--// Enable boxes
+ESP.ShowBox = true;
+
+--// Set the box type to corner
+ESP.BoxType = "Corner Box Esp";
+
+--// Enable names
+ESP.ShowName = true;
+
+--// Enable Healhbar
+ESP.ShowHealth = true;
+
+--// Enable tracers
+ESP.ShowTracer = true;
+
+--// Enable Distance
+ESP.ShowDistance = true;
+
+--[[
+    Enable skeletons: (currently broken)
+    ESP.ShowSkeletons = true;
+]]
+
+
+
+--[[
+    These are all the settings
+    local ESP_SETTINGS = {
+        BoxOutlineColor = Color3.new(0, 0, 0),
+        BoxColor = Color3.new(1, 1, 1),
+        NameColor = Color3.new(1, 1, 1),
+        HealthOutlineColor = Color3.new(0, 0, 0),
+        HealthHighColor = Color3.new(0, 1, 0),
+        HealthLowColor = Color3.new(1, 0, 0),
+        CharSize = Vector2.new(4, 6),
+        Teamcheck = false,
+        WallCheck = false,
+        Enabled = false,
+        ShowBox = false,
+        BoxType = "2D",
+        ShowName = false,
+        ShowHealth = false,
+        ShowDistance = false,
+        ShowSkeletons = false,
+        ShowTracer = false,
+        TracerColor = Color3.new(1, 1, 1), 
+        TracerThickness = 2,
+        SkeletonsColor = Color3.new(1, 1, 1),
+        TracerPosition = "Bottom",
+    }
+    ermm yep thats about it
+]]
+   end,
+})
+
+local Slider = MainTab:CreateSlider({
+   Name = "Walk Speed",
+   Range = {1, 999},
+   Increment = 1,
+   Suffix = "Speed",
+   CurrentValue = 1,
+   Flag = "Slider1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Callback = function(Value)
+     game.Players.LocalPlayer.Character:SetAttribute("SpeedMultiplier", Value)
+   end,
+})
+
+local Slider = MainTab:CreateSlider({
+    Name = "Dash Length",
+    Range = {1, 999},
+    Increment = 1,
+    Suffix = "Length",
+    CurrentValue = 1,
+    Flag = "Slider2", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+    Callback = function(Value)
+      game.Players.LocalPlayer.Character:SetAttribute("DashLength", Value)
+    end,
+ })
+
+ local Slider = MainTab:CreateSlider({
+    Name = "Jump Height",
+    Range = {1, 999},
+    Increment = 1,
+    Suffix = "Height",
+    CurrentValue = 1,
+    Flag = "Slider3", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+    Callback = function(Value)
+        game.Players.LocalPlayer.Character.Humanoid.JumpPower = Value
+    end,
+ })
+
+local MiscTab = Window:CreateTab("🎲Misc", nil) -- Title, Image
+local Section = MiscTab:CreateSection("⚙Settings, Player🎮")
+
+local Toggle = MiscTab:CreateToggle({
+    Name = "No Fog",
+    CurrentValue = false,
+    Flag = "Toggle1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+    Callback = function(Value)
+        repeat task.wait() until game:IsLoaded()
+        wait(5) -- extra load to ensure the script is working
+        for i,v in pairs(game.Lighting:GetChildren()) do
+        if v:IsA("") or v:IsA("Sky") or v:IsA("BlurEffect") or v:IsA("BloomEffect") or v:IsA("SunRaysEffect") then
+        v:Destroy()
+        end
+        end
+        
+        game.Lighting.Ambient = Color3.fromRGB(255, 255, 255)
+        game.Lighting.Brightness = 1
+        game.Lighting.ClockTime = 14
+        game.Lighting.ColorShift_Bottom = Color3.fromRGB(255, 255, 255)
+        game.Lighting.ColorShift_Top = Color3.fromRGB(255, 255, 255)
+        game.Lighting.ExposureCompensation = 0
+        game.Lighting.FogColor = Color3.fromRGB(255, 255, 255)
+        game.Lighting.FogEnd = 999999999
+        game.Lighting.GeographicLatitude = 41.733
+        game.Lighting.OutdoorAmbient = Color3.fromRGB(255, 255, 255)
+        game.Lighting.GlobalShadows = true
+        game.Lighting.Changed:Connect(function()
+        game.Lighting.Ambient = Color3.fromRGB(255, 255, 255)
+        game.Lighting.Brightness = 1
+        game.Lighting.ClockTime = 14
+        game.Lighting.ColorShift_Bottom = Color3.fromRGB(255, 255, 255)
+        game.Lighting.ColorShift_Top = Color3.fromRGB(255, 255, 255)
+        game.Lighting.ExposureCompensation = 0
+        game.Lighting.FogColor = Color3.fromRGB(255, 255, 255)
+        game.Lighting.FogEnd = 999999999
+        game.Lighting.GeographicLatitude = 41.733
+        game.Lighting.OutdoorAmbient = Color3.fromRGB(255, 255, 255)
+        game.Lighting.GlobalShadows = true
+        end)
+        game.Lighting.DescendantAdded:Connect(function(obj)
+        if obj:IsA("") or obj:IsA("Sky") or obj:IsA("BlurEffect") or obj:IsA("BloomEffect") or obj:IsA("SunRaysEffect") then
+        obj:Destroy()
+        end
+        end)
+    end,
+ })
+
+ local Toggle = MiscTab:CreateToggle({
+    Name = "NoClip",
+    CurrentValue = false,
+    Flag = "Toggle2", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+    Callback = function(Value)
+        local Noclip = nil
+local Clip = nil
+
+function noclip()
+	Clip = false
+	local function Nocl()
+		if Clip == false and game.Players.LocalPlayer.Character ~= nil then
+			for _,v in pairs(game.Players.LocalPlayer.Character:GetDescendants()) do
+				if v:IsA('BasePart') and v.CanCollide and v.Name ~= floatName then
+					v.CanCollide = false
+				end
+			end
+		end
+		wait(0.21) -- basic optimization
+	end
+	Noclip = game:GetService('RunService').Stepped:Connect(Nocl)
+end
+
+function clip()
+	if Noclip then Noclip:Disconnect() end
+	Clip = true
+end
+
+noclip() -- to toggle noclip() and clip()
+    end,
+ })
+
+ local Toggle = MiscTab:CreateToggle({
+    Name = "Walk On Water",
+    CurrentValue = false,
+    Flag = "Toggle3", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+    Callback = function(Value)
+-- LocalScript inside StarterPlayerScripts
+
+local player = game.Players.LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+local humanoid = character:WaitForChild("Humanoid")
+local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
+local walkOnWaterEnabled = true  -- Toggle for walking on water
+local hoverHeight = 2  -- Height above the water to simulate walking
+
+-- Function to make the character hover on water
+local function hoverOnWater()
+    -- Continuously check the player's position while walking on water
+    while walkOnWaterEnabled do
+        -- Get the current position of the player's HumanoidRootPart
+        local waterPosition = humanoidRootPart.Position
+        local ray = Ray.new(waterPosition, Vector3.new(0, -10, 0))  -- Raycasting downwards to detect water
+
+        -- Perform raycast to detect the water part (we're checking 10 studs down)
+        local hit, position = workspace:FindPartOnRay(ray, character)
+
+        -- Check if the ray hits a part named "Water"
+        if hit and hit:IsA("Part") and hit.Name == "Water" then
+            -- If the player is over a water part, maintain the hover position at a certain height above the water
+            local targetPosition = Vector3.new(waterPosition.X, position.Y + hoverHeight, waterPosition.Z)
+            humanoidRootPart.CFrame = CFrame.new(targetPosition)
+        end
+
+        -- Wait briefly before checking again
+        wait(0.1)
+    end
+end
+
+-- Start hovering on water once the player joins the game
+hoverOnWater()
+
+-- Optional: Handle respawn if the character dies
+player.CharacterAdded:Connect(function(newCharacter)
+    character = newCharacter
+    humanoid = character:WaitForChild("Humanoid")
+    humanoidRootPart = character:WaitForChild("HumanoidRootPart")
+    hoverOnWater()  -- Reapply hover effect when the player respawns
+end)
+
+    end,
+ })
