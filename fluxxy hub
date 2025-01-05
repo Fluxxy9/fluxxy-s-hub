@@ -115,7 +115,7 @@ local Button = MainTab:CreateButton({
  })
 
 local Slider = MainTab:CreateSlider({
-   Name = "Walk Speed",
+   Name = "Walk Speed (Blox Fruits Only)",
    Range = {1, 999},
    Increment = 1,
    Suffix = "Speed",
@@ -127,7 +127,7 @@ local Slider = MainTab:CreateSlider({
 })
 
 local Slider = MainTab:CreateSlider({
-    Name = "Dash Length",
+    Name = "Dash Length (Blox Fruits Only)",
     Range = {1, 999},
     Increment = 1,
     Suffix = "Length",
