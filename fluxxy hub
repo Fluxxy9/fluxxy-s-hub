@@ -223,7 +223,8 @@ end
 
 function clip()
 	if Noclip then Noclip:Disconnect()
-	Clip = true
+end
+	Clip = false
 end
 
 noclip() -- to toggle noclip() and clip()
