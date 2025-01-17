@@ -222,7 +222,7 @@ function noclip()
 end
 
 function clip()
-	if Noclip then Noclip:Disconnect() end
+	if Noclip then Noclip:Disconnect()
 	Clip = true
 end
 
